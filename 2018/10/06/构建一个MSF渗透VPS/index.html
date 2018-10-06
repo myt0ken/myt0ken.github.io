@@ -167,7 +167,7 @@
 					<span>
 						<i class="fa fa-clock-o"></i> 
 						<a href="/2018/10/06/构建一个MSF渗透VPS/" itemprop="url">
-	<time datetime="2018-10-06T12:15:52.057Z" itemprop="datePublished">
+	<time datetime="2018-10-06T13:24:35.077Z" itemprop="datePublished">
   		06-10-2018
   </time>
 </a>    
@@ -211,8 +211,9 @@
 <p><code>apt-get upgrade -y</code>  #全面升级，避免被别人用n day反捅的尴尬</p>
 <p><code>Init 6</code>  #重启</p>
 <p><code>apt-get autoremove</code>  #删除没用的包</p>
-<p><code>apt-get install locate libssl-dev openssl libssh2-1-dev gcc gdb make netcat camke tree lrzsz vim git curl nmap -y</code>  # 安装一些依赖库和基础工具</p>
-<h4 id="手工配置java环境"><a href="#手工配置java环境" class="headerlink" title="手工配置java环境"></a>手工配置java环境</h4><p><code>apt-get install openjdk</code>可能是最简单的，但是open jdk对很多工具的兼容性有点蛋疼。长痛不如短痛，一般使用oracle jdk。</p>
+<p><code>apt-get install locate libssl-dev openssl libssh2-1-dev -y</code></p>
+<p><code>apt-get install gcc gdb make netcat camke tree lrzsz vim git curl nmap -y</code>  </p>
+<h1 id="安装一些依赖库和基础工具"><a href="#安装一些依赖库和基础工具" class="headerlink" title="安装一些依赖库和基础工具"></a>安装一些依赖库和基础工具</h1><h4 id="手工配置java环境"><a href="#手工配置java环境" class="headerlink" title="手工配置java环境"></a>手工配置java环境</h4><p><code>apt-get install openjdk</code>可能是最简单的，但是open jdk对很多工具的兼容性有点蛋疼。长痛不如短痛，一般使用oracle jdk。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget \</span><br><span class="line">        --no-cookies \</span><br><span class="line">        --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot; \</span><br><span class="line">http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jdk-8u181-linux-x64.tar.gz\</span><br><span class="line">        -O jdk-8u181-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
 <p>为什么下载一个oracle jdk包这么麻烦？在web网页上下载oracle jdk需要点击一个同意协议的按键才能下载，这是通过验证cookie做到的。 <u>在命令行中就要费点事，不然只用wget下载回来的包是无法解压的。</u>也不建议去非官方处下载，万一他给你加点料呢。</p>
 <p>tar解压后</p>
@@ -237,6 +238,7 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/</span><br><span class="line">git clone https://github.com/rapid7/metasploit-framework.git</span><br><span class="line">chown -R `whoami` /opt/metasploit-framework</span><br><span class="line">cd metasploit-framework</span><br><span class="line">gem install bundler</span><br><span class="line">bundle install</span><br><span class="line">echo $?		#回显为0表示上一条指令执行成功</span><br><span class="line">bash -c &apos;for MSF in $(ls msf*); do ln -s /opt/metasploit-framework/$MSF$/usr/local/bin/$MSF;done&apos;</span><br></pre></td></tr></table></figure>
 <p>bundle install 时候如果出现出现<u>ERROR:</u> <u>Failed to build gem native extension</u>.</p>
+<p>解决方法：</p>
 <p><code>Debian下：apt-get install ruby-dev</code></p>
 <p><code>CentOS下：yum install ruby-devel</code></p>
 <h5 id="给msf配置数据库"><a href="#给msf配置数据库" class="headerlink" title="给msf配置数据库"></a>给msf配置数据库</h5><p>msf使用的数据库是postgresql，现在mysql已经不支持了。</p>
@@ -344,7 +346,7 @@
 				
 				
 				<!--toc(post.content)-->
-				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#构建一个MSF渗透VPS"><span class="post-toc-text">构建一个MSF渗透VPS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#以ubuntu-18-04-为例"><span class="post-toc-text">以ubuntu 18.04 为例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置swap分区"><span class="post-toc-text">配置swap分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装依赖和一些工具"><span class="post-toc-text">安装依赖和一些工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#手工配置java环境"><span class="post-toc-text">手工配置java环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置ruby环境"><span class="post-toc-text">配置ruby环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装developer版metasploit"><span class="post-toc-text">安装developer版metasploit</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#给msf配置数据库"><span class="post-toc-text">给msf配置数据库</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#构建一个MSF渗透VPS"><span class="post-toc-text">构建一个MSF渗透VPS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#以ubuntu-18-04-为例"><span class="post-toc-text">以ubuntu 18.04 为例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置swap分区"><span class="post-toc-text">配置swap分区</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装依赖和一些工具"><span class="post-toc-text">安装依赖和一些工具</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装一些依赖库和基础工具"><span class="post-toc-text">安装一些依赖库和基础工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#手工配置java环境"><span class="post-toc-text">手工配置java环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置ruby环境"><span class="post-toc-text">配置ruby环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装developer版metasploit"><span class="post-toc-text">安装developer版metasploit</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#给msf配置数据库"><span class="post-toc-text">给msf配置数据库</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
 			</nav>
 			<div class="post-toc-bar"><div>
 		</aside>
